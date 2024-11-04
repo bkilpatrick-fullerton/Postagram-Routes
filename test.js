@@ -11,7 +11,7 @@ import {
     createTestPosts
   } from "./services/post.service.js";
 
-  import {
+import {
     deleteAllUsers,
     createUser,
     findUserByUsername,
@@ -20,12 +20,18 @@ import {
     createTestUsers
   } from "./services/user.service.js";
 
-const DBNAME = 'bktest'
+import "dotenv/config";
+
+const DB_NAME = 'bktest';
+
+const mongoConnectUrl = process.env.MONGO_CONNECT_URL //Ex: mongodb+srv://<user>:<password>@cpsc499-lads.czvu4.mongodb.net/
+const mongoConnectParams = process.env.MONGO_CONNECT_PARAMS //Ex: ?retryWrites=true&w=majority&appName=CPSC499-LADS
+const mongoConnectStr = mongoConnectUrl + DB_NAME + mongoConnectParams;
 
 const mongoConnect = async () => {
-    await mongoose.connect("mongodb+srv://onaveryspecialepisode:XHhhshSETuLaFXmt@cpsc499-lads.czvu4.mongodb.net/" + DBNAME + "?retryWrites=true&w=majority&appName=CPSC499-LADS");
-    console.log(`DB connected`);
-  };
+  await mongoose.connect(mongoConnectStr);
+  console.log(`DB connected`);
+};
   
 
 const main = async() => {

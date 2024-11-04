@@ -8,13 +8,17 @@ import "dotenv/config";
 const app = express();
 
 app.use(express.json());
-app.use("/user", userRoute)
-app.use("/posts", postRoute)
+app.use("/user", userRoute);
+app.use("/posts", postRoute);
 
-const DBNAME = 'bktest'
+const DB_NAME = 'bktest';
+
+const mongoConnectUrl = process.env.MONGO_CONNECT_URL //Ex: mongodb+srv://<user>:<password>@cpsc499-lads.czvu4.mongodb.net/
+const mongoConnectParams = process.env.MONGO_CONNECT_PARAMS //Ex: ?retryWrites=true&w=majority&appName=CPSC499-LADS
+const mongoConnectStr = mongoConnectUrl + DB_NAME + mongoConnectParams;
 
 const mongoConnect = async () => {
-    await mongoose.connect("mongodb+srv://onaveryspecialepisode:XHhhshSETuLaFXmt@cpsc499-lads.czvu4.mongodb.net/" + DBNAME + "?retryWrites=true&w=majority&appName=CPSC499-LADS");
+    await mongoose.connect(mongoConnectStr);
     console.log(`DB connected`);
 }
 
